@@ -1,4 +1,3 @@
-
 import csv
 import pandas as pd
 from pathlib import Path
@@ -9,7 +8,7 @@ data_dir = Path("./data/chegadas_2024.csv")
 def view_csv(file_path: Path):
 
     df = pd.read_csv(file_path, encoding="iso-8859-1", sep=";")
-    print(df.tail())
+    print(df["ano"].unique())
 
 def main():
     view_csv(data_dir)
