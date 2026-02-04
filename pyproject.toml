@@ -1,9 +1,20 @@
 [project]
-name = "brazilian-etl"
+name = "brazil-etl"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
-    "pandas>=2.3.3",
+    "pandas>=2.1.4,<2.3",
+    "psycopg2-binary>=2.9.11",
+    "sqlalchemy>=1.4.54,<2.0",
 ]
+
+[project.optional-dependencies]
+airflow =[
+    "apache-airflow-providers-fab",
+    "apache-airflow-providers-celery",
+]
+
+[tool.setuptools.packages]
+find = { include = ["etl"] }
