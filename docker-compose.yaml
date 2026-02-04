@@ -1,0 +1,10 @@
+services:
+  brazil_etl:
+    build: . # Build the image from the Dockerfile in the current directory
+    command: python main.py # Default command to run the ETL pipeline
+    image: brazil_etl # Name of the image to build
+    volumes:
+      - ./raw:/app/raw # Mount local raw directory to container for input data
+      - ./clean:/app/clean # Mount local clean directory to container for output data
+    stdin_open: true # Keep stdin open for interactive use
+    tty: true # Allocate a pseudo-TTY
