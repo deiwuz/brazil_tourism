@@ -1,18 +1,38 @@
-import csv
-import pandas as pd
-from pathlib import Path
+"""
+Entry point for the Brazilian Tourism ETL Pipeline.
 
-data_dir = Path("./data/chegadas_2024.csv")
+This module orchestrates the execution of the ETL pipeline steps:
+1. Data Cleaning
+2. Data Loading
+"""
+from etl import clean_data, load_data
+import sys
 
-#Reads the csv file with encoding iso-8859-1 as a pandas dataframe and prints the first 5 rows
-def view_csv(file_path: Path):
+def main(sys_argv: list) -> None:
+    """
+    Execute the complete Brazilian ETL pipeline.
 
-    df = pd.read_csv(file_path, encoding="iso-8859-1", sep=";")
-    print(df["ano"].unique())
+    This function sequentially runs the following steps:
+    1. Data Cleaning: Processes raw data and saves it.
+    2. Data Loading: Loads the processed data into the database.
 
-def main():
-    view_csv(data_dir)
+    Args:
+        sys_argv (list): Command line arguments passed to the script.
+                        First argument is script name, followed by inputs.
+                        See `etl.clean.clean_data` for specific argument usage.
 
+    Returns:
+        None
+    """
+    
+    print("="*60)
+    print("Welcome to your Brazilian ETL Pipeline!")
+    print("="*60)
+    
+    # Step 1: Explore and load data
+    df = clean_data(sys.argv)
+
+    load_data(df)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
