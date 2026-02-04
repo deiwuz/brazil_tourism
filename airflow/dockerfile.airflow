@@ -1,0 +1,11 @@
+FROM apache/airflow:3.1.6-python3.12
+
+ENV AIRFLOW_CONSTRAINTS="https://raw.githubusercontent.com/apache/airflow/constraints-3.1.6/constraints-3.12.txt"
+
+USER airflow
+WORKDIR /opt/airflow
+
+COPY pyproject.toml ./
+COPY etl ./etl
+
+RUN pip install --no-cache-dir -e ".[airflow]" --constraint "$AIRFLOW_CONSTRAINTS"
